@@ -132,7 +132,7 @@ function(app, Hlp, Grid, CRUD) {
 
       });
 
-      $(".modal-body").empty().append(this.$el);
+      $("#modal .modal-body").empty().append(this.$el);
 
 
       $("form input").on("blur", function() {

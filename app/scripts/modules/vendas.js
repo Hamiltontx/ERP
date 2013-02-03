@@ -182,7 +182,7 @@ function(app, Hlp, Grid, CRUD) {
 
 
 
-      $(".modal-body").empty().append(this.$el);
+      $("#modal_venda .modal-body").empty().append(this.$el);
 
 
       $("form input").on("blur", function() {
@@ -230,7 +230,7 @@ function(app, Hlp, Grid, CRUD) {
 
     novo: function(e,id) {
 
-      if (e.keyCode !== 13) {
+      if (e.keyCode !== undefined && e.keyCode !== 13) {
         return
 
       }
@@ -252,7 +252,18 @@ function(app, Hlp, Grid, CRUD) {
 
     validate: function(e) {
 
-      console.log(e.target)
+      var 
+      let = e.target.value;
+      //reg = new RegExp(Hlp.validate.number);
+      
+      if (_.isNaN(let*1)) {
+
+        return false;
+
+      }
+
+
+      // console.log(Hlp.validate.number)
 
     },
    

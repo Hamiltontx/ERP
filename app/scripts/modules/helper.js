@@ -27,6 +27,10 @@ function(app) {
 
 	Hlp = {
 
+		validate: {
+        	number: '(\d+)(((.|,)\d+)+)?'
+		},
+
 		
 
 		doLogin : function() {
