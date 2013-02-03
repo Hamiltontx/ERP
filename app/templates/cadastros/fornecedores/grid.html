@@ -1,0 +1,56 @@
+
+
+    <div class="row-fluid">
+
+      <div class="span6">
+        <h1></h1>
+      </div>
+
+      <div class="span6" style="text-align:right; padding-top:10px;">
+
+        <span id="btn_novo" style="margin-bottom: 10px; display: inline-block;">
+            <a href="#" class="button btn-large"> <i class="icon-file"></i> Novo</a>
+        </span>
+        <span id="btn_edit" style="margin-bottom: 10px; display: inline-block;">
+            <a href="#" class="button btn-large"><i class="icon-pencil"></i> Editar</a>
+        </span>
+        <span id="btn_remove" style="margin-bottom: 10px; display: inline-block;">
+            <a href="#" class="button btn-large"><i class="icon-trash"></i> Remover</a>
+        </span>
+
+        <div class="append-transparent">
+            <form name="proc" id="proc" method="POST" action="#">
+                <input type="text" id="palavra" name="palavra" class="input-transparent procura" placeholder="Pesquisa">
+                <input type="submit" class="add-on button send_ok"  value="OK">
+            </form>
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="row-fluid">
+
+      <div id="grid" class="span12">
+        <div class="box box_grid" style="position:relative;">
+            <div class="tab-header" >
+            </div>
+            <table class="table table-striped data-table" id="grid_fornecedores">    
+              <thead>
+                  <tr>
+                      <th>Empresa</th>
+                      <th>Contato</th>
+                      <th>Telefone</th>
+                      <th>Tipo</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+        </div>
+      </div>
+
+    </div>
+
