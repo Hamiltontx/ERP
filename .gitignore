@@ -1,3 +1,5 @@
-temp
-dist
-layout
+app/temp/
+app/dist/
+layout/
+test/
+

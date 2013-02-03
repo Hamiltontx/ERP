@@ -265,7 +265,7 @@ function(app, Hlp, Grid, CRUD) {
 
       // console.log(Hlp.validate.number)
 
-    },
+    }, 
    
     remover: function() { 
       var that = this;
