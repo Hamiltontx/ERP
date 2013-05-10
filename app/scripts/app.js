@@ -33,8 +33,12 @@ function($, _, Backbone) {
             imagePath: "../../images/alert.png",
             text: "<p>Carregando aguarde</div>"
     });
+    //create a logic here...if notification existe in sequential ajax call's
   }).ajaxSuccess(function() {
-    $("#dismiss-all").trigger("click");
+    //close all only when all ajax finished (defferred)
+    //$("#dismiss-all").trigger("click");
+    Notifications.dismissAll();
+
   });
 
   // Provide a global location to place configuration settings and module

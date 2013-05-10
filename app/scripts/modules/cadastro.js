@@ -40,7 +40,17 @@ function(app, Hlp, Grid, CRUD) {
         var el = document.getElementById(key) || {};
         
         if (el.attributes){
-          $(el).val(attrs[key]);
+          
+          if (el.tagName === "SELECT" && $(el).data().depend !== undefined){
+            if (attrs[key+'_description'] !== ""){
+              $(el).append('<option value="'+attrs[key]+'">'+attrs[key+'_description']+'</option>');
+            }else{
+              err[key] = "vazio";
+            }
+          }else{
+            $(el).val(attrs[key]);
+          }
+
           if (el.hasAttribute("required")) {
             if (attrs[key].length === 0) {
               err[key] = "vazio";
@@ -75,11 +85,17 @@ function(app, Hlp, Grid, CRUD) {
       this.$el.find("input, select, textarea").each(function() {
         var t = $(this);
         model[t.prop("id")] = t.val();
+
+        if (t[0].tagName === "SELECT" && t.data().depend !== undefined){
+          model[t.prop("id")+"_description"] = $("option:selected", t).text();
+        }
+
       });
 
       this.model.attributes._name = that.options.name;
       this.model.save(model,{
 
+        validate: true,
         error: function() {
           Notifications.push({
             imagePath: "../../images/alert.png",
@@ -88,10 +104,10 @@ function(app, Hlp, Grid, CRUD) {
           });
         }, 
         success: function() {
-
           Notifications.push({
             imagePath: "../../images/alert.png",
-            text: "<p>Salvo com sucesso</p>"
+            text: "<p>Salvo com sucesso</p>",
+            autoDismiss: 3
           });
           that.model.clear({silent:true});
           that.render();
@@ -109,9 +125,11 @@ function(app, Hlp, Grid, CRUD) {
 
     afterRender: function() {
 
-      var that = this;
+      var 
+        that = this,
+        view = this.$el;
 
-      this.$el.find("select[data-rel]").each(function() {
+      view.find("select[data-rel]").each(function() {
         var t = $(this);
 
           $.ajax({
@@ -129,8 +147,37 @@ function(app, Hlp, Grid, CRUD) {
 
             }
           });
+      });
+
+      view.find("select[data-depend]").each(function() {
+        var t = $(this);
+
+          view.find("#"+t.data().depend).change(function() {
+            $("option", t).remove();
+
+            $.ajax({
+              url: app.api_url + 'mun/' + $(this).val() ,
+              dataType: 'json',
+              async: false,
+              success: function(data) {
+                var items = [],
+                data = data.results;
+             
+                $.each(data, function(key, v) {
+                  items.push('<option value="' + v.Municipio + '">' + v.Nome_Municipio + '</li>');
+                });
+               
+                t.append(items.join(''));
+                
+              }
+            });
+
+          });
 
       });
+
+
+
 
       $("#modal .modal-body").empty().append(this.$el);
 
@@ -168,7 +215,8 @@ function(app, Hlp, Grid, CRUD) {
     events: {
       "click #btn_novo": "novo",
       "click #btn_edit": "edit",
-      "click #btn_remove": "remover"
+      "click #btn_remove": "remover",
+      "click #btn_print": "print",
     },
 
     afterRender: function() {
@@ -187,6 +235,11 @@ function(app, Hlp, Grid, CRUD) {
       });
 
     },
+    print: function() {
+      
+      window.open(app.api_url + "produtos/print?iDisplayStart=0&iDisplayLength=0");
+
+    },
 
     novo: function(id) {
 
@@ -196,7 +249,7 @@ function(app, Hlp, Grid, CRUD) {
       var model = new Cadastro.Model({_name: name});
 
       if (!_.isObject(id) && id !== undefined) {
-          model.set({_id: id}).fetch();
+          model.set({_id: id}).fetch({validate:true});
       }
 
       var det = new Cadastro.Views.Formulario({

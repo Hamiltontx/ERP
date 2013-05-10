@@ -57,8 +57,6 @@ exports.findGrid = function(req, res) {
                 });
             }); 
         });
-
-
     }
 
     db.collection(req.params.collection, function(err, collection) {
@@ -114,6 +112,119 @@ exports.findGrid = function(req, res) {
     });
 };
 
+
+exports.printAll = function(req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var iDisplayStart = (req.query.iDisplayStart*1);
+    var qt_rowcount = (req.query.iDisplayLength*1);
+    var search = {}, obj = {};
+    var x = function(els,callback) {
+        var total = els.length, count = 0;
+        if (total === 0) 
+                callback();
+
+        _.each(els,function(el,ix){
+            var keyx = el["key"], nodex = el["el"];
+
+            db.collection(keyx.replace('_id', ''), function(err, col) { 
+                col.findOne({'_id':new BSON.ObjectID(nodex[keyx])}, function(err, it) {
+                    if (it !== null){
+                        nodex[keyx] = it.nm_titu;
+                    }else{
+                        nodex[keyx] = "Relacao removida"
+                    }
+                    count ++;
+                    if(count == total){
+                        if(callback)
+                            callback();
+                    }
+                });
+            }); 
+        });
+    }
+
+    db.collection(req.params.collection, function(err, collection) {
+        var total = 0;
+        collection.find(search).count(function(err, count) {
+            total = count
+            var options = {
+                "limit": qt_rowcount,
+                "skip": iDisplayStart,
+                "sort": {"_id": 1}
+            }
+
+            var mycursor = collection.find(search, options);
+
+                
+            mycursor.toArray(function(err, items) {
+
+                var els = [];
+
+                _.each(items, function(el, ix) {
+
+                    _.map(el, function(num,key){ 
+                        if (key.indexOf('_id') > 4) {
+                            els.push({key:key,id:num,el:el});
+                        }
+                    });
+
+                });
+
+                x.call(items,els,function(){
+
+                    var html = "<html><body><table>";
+
+                    _.each(items, function(el, ix) {
+
+                        if (ix == 0){
+                            html += "<tr bgcolor=yellow>";
+                            _.each(el,function(mu,key) {
+                                if (key !== "_id"){
+                                    html += "<td>" + key + " </td>";
+                                }
+                            });
+                            html += "</tr>";
+                        }
+
+                        html += "<tr>";
+                        _.each(el,function(mu,key) {
+                            if (key !== "_id"){
+                                html += "<td>" + mu + " </td>";
+                            }
+                        });
+                        html += "</tr>";
+
+                    });
+
+                    html += "</table></body></html>";
+                    
+                    console.log(html);
+                    
+                    var fs = require('fs');
+                    fs.writeFile("/tmp/" + req.params.collection  + ".xls", html, function(err) {
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            console.log("The file was saved!");
+
+                            
+                            res.download("/tmp/" + req.params.collection  + ".xls");
+                                                    }
+
+
+                    }); 
+
+
+                    
+
+                })
+            });            
+        });
+    });
+};
+
+
 exports.addCad = function(req, res) {
     var cad = req.body;
     db.collection(req.params.collection, function(err, collection) {
@@ -127,6 +238,7 @@ exports.addCad = function(req, res) {
     });
 }
 
+
 exports.findById = function(req, res) {
     var id = req.params.id;
     db.collection(req.params.collection, function(err, collection) {
@@ -135,6 +247,7 @@ exports.findById = function(req, res) {
         });
     });
 };
+
 
 exports.updateCad = function(req, res) {
     var id = req.params.id;

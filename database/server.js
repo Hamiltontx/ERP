@@ -1,6 +1,7 @@
 var express = require('express'),
     cad = require('./routes/cadastros'),
     hlp = require('./routes/helpers');
+    cst = require('./routes/custom');
  
 var app = express();
  
@@ -28,11 +29,21 @@ app.use(allowCrossDomain);
 
 });
 
+//Fix routes
+app.get('/vendas/grid', cst.vendasfindGrid); //G
+app.get('/vendas/print', cst.vendasPrint); //D
+
+app.get('/vendas/:id', cst.vendasfindById); //V
+app.get('/nf/:id', cst.NFById); //I
+
 //Helpers
-app.get('/:collection/rel', hlp.findRel); //D
+app.get('/:collection/rel', hlp.findRel); //Relacao
+app.get('/:collection/find/:w', hlp.findW); //Autocomplete
+app.get('/mun/:w', hlp.findMun); //Municipios
 
 //GCRUD Cadastros
 app.get('/:collection/grid', cad.findGrid); //G
+app.get('/:collection/print', cad.printAll); //P
 app.post('/:collection', cad.addCad); //C
 app.delete('/:collection/:id', cad.deleteCad); //R
 app.put('/:collection/:id', cad.updateCad); //U

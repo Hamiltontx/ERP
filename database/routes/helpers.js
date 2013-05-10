@@ -22,3 +22,54 @@ exports.findRel = function(req, res) {
     });
 };
 
+exports.findW = function(req, res) {
+    db.collection(req.params.collection, { nm_titu:1 }, function(err, collection) {
+        var options = {
+                "limit": 10,
+                "sort": {"nm_titu": 1}
+            }
+
+        collection.find({nm_titu: { $regex: req.params.w, $options: 'i' }},  options).toArray(function(err, item) {
+            var send = {
+                q: req.params.w,
+                results:  item
+            }
+            
+            res.send(send);
+        });
+    });
+};
+
+
+
+exports.findMun = function(req, res) {
+    db.collection("nfMunicipios", function(err, collection) {
+        var options = {
+                "sort": {"Nome_Municipio": 1}
+            }
+        
+        collection.find({ "UF" : req.params.w*1 },  { "Municipio": 1, "Nome_Municipio": 1 }, options).toArray(function(err, item) {
+
+            var mel = [];
+            _.each(item, function(el,ix) {
+                delete el._id;
+                if (ix > 0) {
+                    if (el.Municipio !== item[ix-1].Municipio) { mel.push(el) }
+                }else{
+                    mel.push(el)
+                }
+            });
+            
+            var send = {
+                q: req.params.w,
+                results:  mel
+            }
+            
+            res.send(send);
+        });
+
+    });
+};
+
+
+

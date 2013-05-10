@@ -16,7 +16,7 @@ function(app, Hlp, Cadastro, Venda) {
   var Router = Backbone.Router.extend({
     routes: {
       "": "index",
-      "vendas": "vendas",
+      "vendas/ped": "vendas",
       "compras": "compras",
       "fabrica": "fabrica",
       "montagem": "montagem",
@@ -26,6 +26,34 @@ function(app, Hlp, Cadastro, Venda) {
     index: function() {
       //app.layout : app.menu
       app.useLayout('painel/base', 'controle');
+
+      $.getJSON(app.api_url + 'config/514101a19d2b6f0de868577c').done(function(d) {
+        console.log(d);
+        $("#nf_num").val(d.nf_num);
+        $("#nf_obs").val(d.nf_obs);
+        $("#alicota").val(d.alicota);
+
+      });
+
+      $("#save_config").on("click", function() {
+
+          $.ajax({
+              url: app.api_url + 'config/514101a19d2b6f0de868577c',
+              type: 'PUT',
+              data: {
+                  nf_num: $("#nf_num").val(),
+                  nf_obs: $("#nf_obs").val(),
+                  alicota: $("#alicota").val()
+              },
+              success: function(result) {
+                  alert("Atualizado com sucesso!")
+              }
+          });
+
+      });
+
+
+
     },
 
     vendas: function() {
@@ -37,6 +65,7 @@ function(app, Hlp, Cadastro, Venda) {
           model: new Venda.Model()
         })
       }).render();
+
     },
 
     compras: function() {

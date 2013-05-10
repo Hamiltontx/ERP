@@ -1,72 +1,220 @@
-  <form class="fill-up">
+
+<div class="tabbable black-box" style="margin-bottom: 18px;">
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Pedido </a></li>
+    <li class=""><a href="#tab2" data-toggle="tab">Emitir NF</a></li>
+  </ul>
+
+  <form class="fill-up"> 
+
+    <div class="tab-content">
+      
+      <div class="tab-pane active" id="tab1">
+        <div class="padded">
+          
+
+
         <div class="row-fluid">
 
-          <div class="span6">
+                  <div class="span6" id="header_ped">
 
-            <div class="padded">
+                    <div class="padded">
 
-              <div class="input">
-                Cliente
-                 <select name="clientes_id" id="clientes_id"  data-rel="clientes" class="fill-up" requeired></select>
-              </div>
-              <div class="input">
-                Vendedor
-                <select name="vendedores_id" id="vendedores_id"  data-rel="vendedores" class="fill-up"></select>
-              </div>
+                      <table width="100%"> 
+                        <tr><td>
+                          <div class="input" style="height:53px;width:133px;">
+                            Data do pedido
+                            <input  type="text" id="data_ped" class="input-transparent fill-up" value="" disabled>
+                          </div>
+                        </td>
+                        <td>
+                        <div class="input" style="height:53px;width:133px;">
+                          Pedido Separado
+                          <div class="inner-well clearfix" >
+                            <input type="checkbox" id="separa_ped" class="checky" value="0">
+                            <label for="separa_ped" class="checky"><span></span></label>
+                          </div>  
+                        </div>
+                        </td></tr>
+                      </table>
 
-            </div>
+                    </div>
+                  </div>
 
-          </div>
+                  <div class="span6">
 
-          <div class="span6">
+                      <div class="padded">
+                        
 
-            <div class="padded">
+                        <div class="input">
+                          Cliente
+                          <select name="clientes_id" id="clientes_id"  data-autorel="clientes" class="fill-up chzn-select" required></select>
+                        </div>
 
-              <div class="input">
-                Prazo A
-                <select name="prazos_idA" id="prazos_idA"  data-rel="prazos" class="fill-up"></select>
-              </div>
-              <div class="input">
-                Prazo B
-                <select name="prazos_idB" id="prazos_idB"  data-rel="prazos" class="fill-up"></select>
-              </div>
 
-            </div>
-
-          </div>
+                      </div>
+                  </div>
 
         </div>
 
-      <div class="row-fluid">
 
-          <div class="span12">
+        <!-- Itend do Pedido -->
+        <div class="row-fluid">
 
-            <div class="padded" style="padding-top:0px">
-
-              <h5>Itens do pedido</h5>
-
-              <div id="body_ped">
-                
-
-
-
-
+            <div class="span12">
+              <div class="padded" style="padding-top:0px">
+                <h5>Itens do pedido</h5>
+                <div id="body_ped"></div>
               </div>
-
-              
-
-
             </div>
+        </div>
 
-          </div>
 
          
 
+              
         </div>
+      </div>
+      
+      <div class="tab-pane" id="tab2">
+        <div class="padded">
+          
 
 
-       
-</form>
+          <div class="row-fluid">
+
+            <div class="span6" id="header_ped">
+
+              <div class="padded">
+
+                
+                <div class="input">
+                  Vendedor
+                  <select name="vendedores_id" id="vendedores_id"  data-autorel="vendedores" class="fill-up chzn-select" ></select>
+                </div>
+                <div class="input">
+                  Transportadora
+                  <select name="transportadoras_id" id="transportadoras_id"  data-autorel="transportadoras" class="fill-up chzn-select"></select>
+                </div>
+
+                <div class="input">
+                  Frete
+                  <select name="frete" id="frete" class="fill-up">
+                    <option value="0">Por conta do emitente</option>
+                    <option value="1">Por conta do Destinatario/Remetente</option>
+                    <option value="2">Por conta de terceiros</option>
+                    <option value="9">Sem frete</option>
+                  </select>
+                </div>
+
+                <div class="input">
+                          Forma de pagamento
+                          <select name="ind_pag" id="ind_pag" class="fill-up">
+                            <option value="0">Pagamento a vista</option>
+                            <option value="1">Pagamento a prazo</option>
+                            <option value="2">Outros</option>
+                          </select>
+                    </div>
+
+
+              </div>
+            </div>
+
+            <div class="span6">
+
+                <div class="padded">
+                  <table>
+                    <tr><td>
+
+                      <div class="input" style="height:53px;width:190px;">
+                        Nota Fiscal Emitida
+                        <div class="inner-well clearfix" >
+                          <input type="checkbox" id="emit_nf" class="checky" value="0">
+                          <label for="emit_nf" class="checky"><span></span></label>
+                        </div>
+                      </div>
+
+                    </td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td>
+
+                      <div class="input" style="height:53px;width:133px;">
+                        Numero da Nota Fiscal
+                        <input  type="text" id="nf_num" class="input-transparent fill-up" value="" disabled>
+                      </div>
+
+                      
+                    </td></tr>
+                  </table>
+
+                  <table>
+                    <tr><td>
+                      <div class="input" style="height:53px;width:100px;">
+                        Qtd Caixas
+                        <div class="input" >
+                           <input type="text" id="nf_qtd_caixa" class ="input-transparent fill-up" value="">
+                        </div>
+                      </div>
+                    </td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td>
+
+                      <div class="input" style="height:53px;width:100px;">
+                        Peso
+                        <div class="input" >
+                           <input type="text" id="nf_peso" class ="input-transparent fill-up" value="">
+                          
+                        </div>
+                      </div>
+
+                    </td>
+                  <td>&nbsp;&nbsp;</td>
+                    <td>
+
+                      <div class="input" style="height:53px;width:120px;">
+                        Desconto
+                        <div class="input" >
+                           <input type="text" id="nf_desconto" class ="input-transparent fill-up" value="">
+                          
+                        </div>
+                      </div>
+
+                    </td>
+                  </tr>
+                  </table>
+
+                    
+
+                    <div class="input">
+                      Prazo A
+                      <select name="prazos_idA" id="prazos_idA"  data-autorel="prazos" class="fill-up chzn-select"></select>
+                    </div>
+                    <div class="input">
+                      Prazo B
+                      <select name="prazos_idB" id="prazos_idB"  data-autorel="prazos" class="fill-up chzn-select" ></select>
+                    </div>
+
+                </div>
+
+            </div>
+
+          </div>
+              
+          </div>
+      </div>
+
+    </div>
+
+  </form>
+
+</div>
+
+
+
+
+
+
 
 
 

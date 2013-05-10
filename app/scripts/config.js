@@ -12,7 +12,8 @@ require.config({
     // Libraries.
     jquery: "../scripts/libs/jquery",
     lodash: "../scripts/libs/lodash",
-    backbone: "../scripts/libs/backbone"
+    backbone: "../scripts/libs/backbone",
+    jqueryui: "plugins/jquery-ui-1.10.0.custom"
   },
 
   shim: {
@@ -22,13 +23,18 @@ require.config({
       exports: "Backbone"
     },
 
+    jqueryui: {
+      deps: ["jquery"]
+    },
+
     // Backbone.LayoutManager depends on Backbone.
     "plugins/backbone.layoutmanager": ["backbone"],
-    "plugins/joox": ["jquery"],
+    "plugins/joox": ["jqueryui"],
     "plugins/bootstrap": ["jquery"],
     "plugins/jquery.dataTables": ["jquery"],
-    "plugins/notification": ["jquery"],
+    "plugins/notification": ["jqueryui"],
     "plugins/chosen": ["jquery"]
+
     
     
 

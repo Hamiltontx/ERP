@@ -9,8 +9,10 @@ function(app) {
       var 
       d = dt.getDate(),
       m = dt.getMonth()+1,
-      y = dt.getFullYear();
-      return '' + (d<=9?'0'+d:d) +'.'+ (m<=9?'0'+m:m) +'.'+ y ;
+      y = dt.getFullYear(),
+      h = dt.getHours(),
+      mi = dt.getMinutes();
+      return '' + (d<=9?'0'+d:d) +'/'+ (m<=9?'0'+m:m) +'/'+ y + ' ' + (h<=9?'0'+h:h) + ':' +  (mi<=9?'0'+mi:mi);
 	};
 	Number.prototype.formatMoney = function(c, d, t){
 	var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
@@ -29,6 +31,36 @@ function(app) {
 
 		validate: {
         	number: '(\d+)(((.|,)\d+)+)?'
+		},
+
+		_applyChosen: function() {
+			$("select").each(function() { 
+	            var col = $(this).data().autorel;  
+	            if (col) {
+	              $(this).ajaxChosen({
+	                 loadingImg: 'images/loading_chosen.gif',
+	                 generateUrl: function() { 
+	                  return app.api_url + col + "/find/" + this.value
+	                }
+	              });
+	            }
+          	});
+		},
+
+
+		//revisar soma
+		soma_total: function() {
+			var tt=0,it =0;
+			$("[id*=ped_valor]").each(function() {
+				if($(this).parent().next().find(".add_prod").is(":visible") === false){
+					var vl = ($(this).val()*1), 
+					qtd = ($(this).parent().prev().find("input").val()*1);
+					tt += qtd*vl;
+					it +=1;
+				}
+			});
+			$("#total").text(tt.formatMoney());
+			$("#itens").text(it);
 		},
 
 		

@@ -137,6 +137,13 @@
       }
     };
 
+    // Hack to fix trigger click problem
+    Notifications.dismissAll = function() {
+      if (Notifications.instance !== null) {
+        return Notifications.instance.dismissAll();
+      }
+    };
+
     Notifications.prototype.dismissAll = function() {
       var notification, _i, _len, _ref, _results;
       _ref = this.notifications;
@@ -147,6 +154,10 @@
       }
       return _results;
     };
+
+    
+
+
 
     Notifications.prototype.removeNotification = function(notification) {
       this.notifications.remove(notification);

@@ -7073,6 +7073,16 @@ padding-top: 10px;}
     .black-box .separator a:hover {
       color: #fff; }
 
+
+.black-box .separator span {
+    color: #444444;
+    text-shadow: none;
+    }
+    /* line 45, mixin_helpers.css.scss */
+    .black-box .separator a:hover span {
+      color: #444444; }
+
+
 /* line 188, layout.css.scss */
 .clearfix {
   overflow: hidden;
@@ -10883,19 +10893,20 @@ input.search {
 #modal_venda {
 
 
-  height: 600px;
+  height: 630px;
 
 }
 #body_ped{
-  height: 260px;
+  height: 180px;
   overflow: scroll;
 }
 .total {
 padding-bottom: 10px;
-
+padding-right: 10px;
 }
 .add_prod, .del_prod {
   margin-top: 5px;
+  height: 22px;
 }
 
 
@@ -11040,4 +11051,4 @@ padding-bottom: 10px;
 }
 
 }
-
+#imp_ped{display: none;}

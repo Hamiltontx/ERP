@@ -45,62 +45,43 @@
               Numero
               <input type="text" name="nu_num" id="nu_num"  >
             </div>
-            <div class="input">
-              Cidade
-              <input type="text" name="nm_cid" id="nm_cid"  >
-            </div>
-            <div class="">
-               Estado
-              <select name="sl_est" id="sl_est" placeholder="Estado" class="fill-up">
-                    <option value="ac">Acre</option>
-                    <option value="al">Alagoas</option>
-                    <option value="ap">Amapá</option>
-                    <option value="am">Amazonas</option>
-                    <option value="ba">Bahia</option>
-                    <option value="ce">Ceará</option>
-                    <option value="df">Distrito Federal</option>
-                    <option value="es">Espirito Santo</option>
-                    <option value="go">Goiás</option>
-                    <option value="ma">Maranhão</option>
-                    <option value="ms">Mato Grosso do Sul</option>
-                    <option value="mt">Mato Grosso</option>
-                    <option value="mg">Minas Gerais</option>
-                    <option value="pa">Pará</option>
-                    <option value="pb">Paraíba</option>
-                    <option value="pr">Paraná</option>
-                    <option value="pe">Pernambuco</option>
-                    <option value="pi">Piauí</option>
-                    <option value="rj">Rio de Janeiro</option>
-                    <option value="rn">Rio Grande do Norte</option>
-                    <option value="rs">Rio Grande do Sul</option>
-                    <option value="ro">Rondônia</option>
-                    <option value="rr">Roraima</option>
-                    <option value="sc">Santa Catarina</option>
-                    <option value="sp">São Paulo</option>
-                    <option value="se">Sergipe</option>
-                    <option value="to">Tocantins</option>
+                          <div class="input">
+                Estado<br>
+                <select name="cli_uf" id="cli_uf">
+                  <option value="12">Acre</option>
+                  <option value="27">Alagoas</option>
+                  <option value="16">Amapá</option>
+                  <option value="13">Amazonas</option>
+                  <option value="29">Bahia</option>
+                  <option value="23">Ceará</option>
+                  <option value="53">Distrito Federal</option>
+                  <option value="32">Espírito Santo</option>
+                  <option value="52">Goiás</option>
+                  <option value="21">Maranhão</option>
+                  <option value="51">Mato Grosso</option>
+                  <option value="50">Mato Grosso do Sul</option>
+                  <option value="31">Minas Gerais</option>
+                  <option value="15">Pará</option>
+                  <option value="25">Paraíba</option>
+                  <option value="41">Paraná</option>
+                  <option value="26">Pernambuco</option>
+                  <option value="22">Piauí</option>
+                  <option value="33">Rio de Janeiro</option>
+                  <option value="24">Rio Grande do Norte</option>
+                  <option value="43">Rio Grande do Sul</option>
+                  <option value="11">Rondônia</option>
+                  <option value="14">Roraima</option>
+                  <option value="42">Santa Catarina</option>
+                  <option value="35">São Paulo</option>
+                  <option value="28">Sergipe</option>
+                  <option value="17">Tocantins</option>
                 </select>
-            </div>
-
-
-
-            <!-- <div class="input">
-              Banco
-              <select name="city" id="city" placeholder="City" class="fill-up chzn-select chzn-done" style="display: none;">
-                <option>Seattle</option>
-                <option>Chicago</option>
-                <option>New York</option>
-              </select><div id="city_chzn" class="chzn-container chzn-container-single" style="width: 471px;"><a href="javascript:void(0)" class="chzn-single"><span>Seattle</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 469px; top: 30px;"><div class="chzn-search"><input type="text" autocomplete="off" style="width: 434px;"></div><ul class="chzn-results"><li id="city_chzn_o_0" class="active-result result-selected" style="">Seattle</li><li id="city_chzn_o_1" class="active-result" style="">Chicago</li><li id="city_chzn_o_2" class="active-result" style="">New York</li></ul></div></div>
-            </div>
-
-            <div class="input">
-              Repassado para
-              <select name="city" id="city" placeholder="City" class="fill-up chzn-select chzn-done" style="display: none;">
-                <option>Seattle</option>
-                <option>Chicago</option>
-                <option>New York</option>
-              </select><div id="city_chzn" class="chzn-container chzn-container-single" style="width: 471px;"><a href="javascript:void(0)" class="chzn-single"><span>Seattle</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 469px; top: 30px;"><div class="chzn-search"><input type="text" autocomplete="off" style="width: 434px;"></div><ul class="chzn-results"><li id="city_chzn_o_0" class="active-result result-selected" style="">Seattle</li><li id="city_chzn_o_1" class="active-result" style="">Chicago</li><li id="city_chzn_o_2" class="active-result" style="">New York</li></ul></div></div>
-            </div> -->
+              </div>
+            
+              <div class="input">
+                Cidade<br>
+                <select name="cli_cid" id="cli_cid" data-depend="cli_uf"></select>
+              </div>
 
 
           </div>

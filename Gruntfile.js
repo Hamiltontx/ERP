@@ -68,16 +68,17 @@ module.exports = function( grunt ) {
           'app/styles/**/*.{scss,sass}'
         ],
         tasks: 'compass reload'
-      },
-      reload: {
-        files: [
-          'app/*.html',
-          'app/styles/**/*.css',
-          'app/scripts/**/*.js',
-          'app/images/**/*'
-        ],
-        tasks: 'reload'
       }
+      // ,
+      // reload: {
+      //   files: [
+      //     'app/*.html',
+      //     'app/styles/**/*.css',
+      //     'app/scripts/**/*.js',
+      //     'app/images/**/*'
+      //   ],
+      //   tasks: 'reload'
+      // }
     },
 
     // default lint configuration, change this to match your setup:
@@ -181,5 +182,9 @@ module.exports = function( grunt ) {
 
   // Alias the `test` task to run the `mocha` task instead
   grunt.registerTask('test', 'mocha');
+  // grunt.registerHelper('reload:inject', function () {
+  //  return function inject(req, res, next) {
+  //  return next();
+  // }});
 
 };
