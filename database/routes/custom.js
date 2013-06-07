@@ -62,7 +62,7 @@ db.open(function(err, db) {
             "32": "ES",
             "52": "GO",
             "21": "MA",
-            "51": "MG",
+            "51": "MT",
             "50": "MS",
             "31": "MG",
             "15": "PA",
@@ -161,10 +161,20 @@ exports.vendasfindGrid = function(req, res) {
         search.$or = [];
 
         _.each(bSearch, function(v, k) {
+            if (k === 'clientes_id'){
+                db.collection('clientes', function(err,col) {
+                    col.findOne({ nm_titu: {$regex: 'ferr', $options: 'i' }},{_id:1}, function(err,it) {
+                        v = it._id;
+                    })
+                })
+            }
             var obj = {};
-            obj[k] = new RegExp(v);
+            obj[k] = { $regex: v, $options: 'i' }
             search.$or.push(obj);
+            console.log(obj)
         });
+
+
 
     }
 
@@ -175,7 +185,7 @@ exports.vendasfindGrid = function(req, res) {
             var options = {
                 "limit": qt_rowcount,
                 "skip": iDisplayStart,
-                "sort": {"_id": 1}
+                "sort": {"dt_nf_emitida": 1}
             }
 
             var mycursor = collection.find(search, { dt_nf_emitida:1, clientes_id:1, nf_num:1,  valor_total:1, data_ped:1}, options);
@@ -275,11 +285,11 @@ exports.NFById = function(req, res) {
                 var suframa = "";
                 
                 //PROD
-                // html += "E|"+c.nm_titu+"|"+c.cli_ie.to_n()+"||"+c.cli_email+"\r\n"
+                html += "E|"+c.nm_titu+"|"+c.cli_ie.to_n()+"||"+c.cli_email+"\r\n"
                 //PROD
 
                 // HOMOLOGACAO
-                html += "E|"+c.nm_titu+"|||"+c.cli_email+"\r\n" 
+                // html += "E|"+c.nm_titu+"|||"+c.cli_email+"\r\n" 
                 // HOMOLOGACAO
 
                 if (c.cli_cnpj.length > 11){

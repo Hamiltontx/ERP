@@ -40,6 +40,8 @@ app.get('/nf/:id', cst.NFById); //I
 app.get('/:collection/rel', hlp.findRel); //Relacao
 app.get('/:collection/find/:w', hlp.findW); //Autocomplete
 app.get('/mun/:w', hlp.findMun); //Municipios
+app.get('/hlp/sum.j', hlp.Sum); //Somarizador
+
 
 //GCRUD Cadastros
 app.get('/:collection/grid', cad.findGrid); //G

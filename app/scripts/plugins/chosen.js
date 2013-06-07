@@ -1109,7 +1109,7 @@ Copyright (c) 2011 by Harvest
         callback,
         throttle = false,
         requestQueue = [],
-        typing = false,
+        typing = true,
         loadingImg = '/img/loading.gif',
         ajaxOptions = {
           dataType: 'json',
@@ -1209,7 +1209,9 @@ Copyright (c) 2011 by Harvest
       keyRight.which = 39;
       //highlight
 
-      input.val(data.q).trigger(keyRight).get(0).style.background = inputBG;
+      input.val(data.q)
+      // input.trigger(keyRight)
+      input.get(0).style.background = inputBG;
       $('> a span', chosen).text(select.attr('placeholder') || '');
 
       if (items.length > 0) {

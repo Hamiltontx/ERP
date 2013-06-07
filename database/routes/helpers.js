@@ -23,13 +23,13 @@ exports.findRel = function(req, res) {
 };
 
 exports.findW = function(req, res) {
-    db.collection(req.params.collection, { nm_titu:1 }, function(err, collection) {
+
+    var resp = function(collection) {
         var options = {
                 "limit": 10,
                 "sort": {"nm_titu": 1}
             }
-
-        collection.find({nm_titu: { $regex: req.params.w, $options: 'i' }},  options).toArray(function(err, item) {
+        collection.find({nm_titu: { $regex: req.params.w, $options: 'i' }}, options).toArray(function(err, item) {
             var send = {
                 q: req.params.w,
                 results:  item
@@ -37,7 +37,50 @@ exports.findW = function(req, res) {
             
             res.send(send);
         });
+
+    }
+
+    var resp_cli = function(collection) {
+        var options = {
+                "limit": 10,
+                "sort": {"nm_titu": 1}
+            }
+            var search = {};
+            search.$or = [];
+            search.$or.push({"nm_titu":{ $regex: req.params.w, $options: 'i' }});
+            search.$or.push({"cli_cnpj":{ $regex: req.params.w, $options: 'i' }});
+
+        collection.find(search, {"nm_titu": 1, "cli_cnpj": 1}, options).toArray(function(err, item) {
+
+            _.each(item, function(el,ix) {
+                
+                el.nm_titu += " - " + el.cli_cnpj;
+                delete el.cli_cnpj;
+
+            }); 
+
+            var send = {
+                q: req.params.w,
+                results:  item
+            }
+            
+            res.send(send);
+        });
+
+    }
+
+    db.collection(req.params.collection, { nm_titu:1 }, function(err, collection) {
+        
+        if (req.params.collection === "clientes") {
+            resp_cli(collection);
+            return;
+        }
+
+        resp(collection);
+        
     });
+
+
 };
 
 
@@ -71,5 +114,25 @@ exports.findMun = function(req, res) {
     });
 };
 
+
+
+
+
+
+
+exports.Sum = function(req, res) {
+
+    db.collection("vendas", function(err, collection) {
+
+        collection.find({ 'dt_nf_emitida': '' }).toArray(function(err, item) {
+
+            var send = {
+                    ped_sep: item.length
+                };
+            
+            res.send(send);
+        })
+    })
+};
 
 

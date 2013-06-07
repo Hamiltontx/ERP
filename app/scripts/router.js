@@ -5,12 +5,13 @@ define([
   //Modules
   "modules/helper",
   "modules/cadastro",
-  "modules/vendas"
+  "modules/vendas",
+  "modules/produto"
 
 
 ],
 
-function(app, Hlp, Cadastro, Venda) {
+function(app, Hlp, Cadastro, Venda, Produto) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -20,6 +21,7 @@ function(app, Hlp, Cadastro, Venda) {
       "compras": "compras",
       "fabrica": "fabrica",
       "montagem": "montagem",
+      "cadastros/produtos": "produtos",
       "cadastros/:base": "cadastros",
     },
 
@@ -28,12 +30,13 @@ function(app, Hlp, Cadastro, Venda) {
       app.useLayout('painel/base', 'controle');
 
       $.getJSON(app.api_url + 'config/514101a19d2b6f0de868577c').done(function(d) {
-        console.log(d);
+        
         $("#nf_num").val(d.nf_num);
         $("#nf_obs").val(d.nf_obs);
         $("#alicota").val(d.alicota);
 
       });
+      Hlp.get_data_geral();
 
       $("#save_config").on("click", function() {
 
@@ -57,6 +60,8 @@ function(app, Hlp, Cadastro, Venda) {
     },
 
     vendas: function() {
+
+      Hlp.get_data_geral();
 
       app.useLayout('vendas/base', 'controle')
       .setViews({
@@ -93,7 +98,19 @@ function(app, Hlp, Cadastro, Venda) {
         })
       }).render();
       
-    }
+    },
+
+    produtos: function() {
+
+      app.useLayout('cadastros/base', 'cadastro')
+      .setViews({
+        "#edit_mode": new Produto.Views.Tela({
+          name: "produtos",
+          model: new Produto.Model()
+        })
+      }).render();
+
+    },
 
   });
 

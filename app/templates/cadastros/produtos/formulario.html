@@ -1,65 +1,99 @@
+  <div class="tabbable black-box" style="margin-bottom: 18px;">
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Produto </a></li>
+    <li class=""><a href="#tab2" data-toggle="tab">Estoque</a></li>
+  </ul>
+
   <form id="form_produtos" class="fill-up">
     
-      <div class="row-fluid">
 
-        <div class="span6">
+    <div class="tab-content">
+      
+      <div class="tab-pane active" id="tab1">
 
-          <div class="padded">
+        <div class="row-fluid">
 
-            <div class="input">
-              Codigo
-              <input type="text" name="id_prod" id="id_prod" required>
-            </div>
-            <div class="input">
-              Nome
-              <input type="text" name="nm_titu" id="nm_titu" required >
-            </div>
-            <div class="input">
-              Quantidade
-              <input type="text" name="qt_prod" id="qt_prod" >
-            </div>
-             <div class="input">
-              Valor
-              <input type="text" name="vl_prod" id="vl_prod" required >
-            </div>
-            <div class="input">
-              Tipo
-              <select name="tp_prod" id="tp_prod"  class="fill-up">
-                    <option value="1">Fabricacao Propria</option>
-                    <option value="2">Papel</option>
-                    <option value="3">Revenda</option>
-              </select>
-            </div>
+          <div class="span6">
 
+            <div class="padded">
+
+              <div class="input">
+                Codigo
+                <input type="text" name="id_prod" id="id_prod" required>
+              </div>
+              <div class="input">
+                Nome
+                <input type="text" name="nm_titu" id="nm_titu" required >
+              </div>
+              <div class="input">
+                Quantidade
+                <input type="text" name="qt_prod" id="qt_prod" >
+              </div>
+               <div class="input">
+                Valor
+                <input type="text" name="vl_prod" id="vl_prod" required >
+              </div>
+              <div class="input">
+                Tipo
+                <select name="tp_prod" id="tp_prod"  class="fill-up">
+                      <option value="1">Fabricacao Propria</option>
+                      <option value="2">Papel</option>
+                      <option value="3">Revenda</option>
+                </select>
+              </div>
+
+            </div>
           </div>
 
-        </div>
+          <div class="span6">
 
-        <div class="span6">
+            <div class="padded">
 
-          <div class="padded">
+              <div class="input">
+                Codigo de barras
+                <input type="text" name="id_ean" id="id_ean">
+              </div>
 
-            <div class="input">
-              Codigo de barras
-              <input type="text" name="id_ean" id="id_ean">
+              <div class="input">
+                Categoria
+                <select name="prod_cat" id="prod_cat"  data-rel="produtos_cat" class="fill-up"></select>
+              </div>
+
+              <div class="input">
+                Medidas
+                <input type="text" name="nu_med" id="nu_med" >
+              </div>
+
+              <div class="input">
+                Estoque
+                <input type="text" name="qtd_etoque" id="qtd_etoque" >
+              </div>
+
             </div>
-
-            <div class="input">
-              Categoria
-              <select name="prod_cat" id="prod_cat"  data-rel="produtos_cat" class="fill-up"></select>
-            </div>
-
-            <div class="input">
-              Medidas
-              <input type="text" name="nu_med" id="nu_med" >
-            </div>
-
           </div>
-
         </div>
+
+      </div>
+
+      <div class="tab-pane" id="tab2">
+
+        <!-- Itend do Pedido -->
+        <div class="row-fluid">
+
+            <div class="span12">
+              <div class="padded" style="padding-top:0px">
+                <h5>Controle de estoque</h5>
+                <div id="body_prod"></div>
+              </div>
+            </div>
+            
+        </div>
+
+      </div>
 
     </div>
      
     </form>
 
-
+</div>

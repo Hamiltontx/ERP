@@ -28,9 +28,20 @@ exports.findGrid = function(req, res) {
 
         _.each(bSearch, function(v, k) {
             var obj = {};
-            obj[k] = new RegExp(v);
+            
+            obj[k] = { $regex: v, $options: 'i' }
+
             search.$or.push(obj);
+
+            // console.log(obj)
+
+            // search.$or.push({"nm_titu":{ $regex: req.params.w, $options: 'i' }});
+
+            // { $regex: req.params.w, $options: 'i' }
+
         });
+
+
 
     }
 
@@ -69,7 +80,18 @@ exports.findGrid = function(req, res) {
                 "sort": {"_id": 1}
             }
 
-            var mycursor = collection.find(search, options);
+            var mycursor = {};
+
+            if (req.params.collection === 'produtos') {
+
+                mycursor = collection.find(search, {id_prod:1, nm_titu:1, qt_prod:1, vl_prod:1 }, options);
+
+            }else{
+
+                mycursor = collection.find(search, options);
+
+            }
+             
 
                 
             mycursor.toArray(function(err, items) {
@@ -153,6 +175,7 @@ exports.printAll = function(req, res) {
                 "skip": iDisplayStart,
                 "sort": {"_id": 1}
             }
+
 
             var mycursor = collection.find(search, options);
 

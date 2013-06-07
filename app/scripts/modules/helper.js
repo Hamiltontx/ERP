@@ -99,6 +99,13 @@ function(app) {
 			$("nav a").attr("data-nav", "open");
 			$("nav li").removeClass("menu-off");
 			Backbone.history.navigate('#dashboard', true);
+		},
+		get_data_geral: function() {
+			$.getJSON(app.api_url + 'hlp/sum.j').done(function(d) {
+        
+		        $("#ped_sep").html(d.ped_sep);
+
+      		});
 		}
 
 

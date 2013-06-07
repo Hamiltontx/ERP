@@ -16,6 +16,8 @@ define([
 
 function($, _, Backbone) {
 
+$("nav").css("height",$(document).innerHeight())
+
   new Notifications({
         container: $("body"),
         bootstrapPositionClass: "span8 offset2"
